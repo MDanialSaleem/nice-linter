@@ -21,5 +21,6 @@
   "homepage": "https://github.com/MDanialSaleem/nice-linter#readme",
   "dependencies": {
     "espree": "^9.0.0"
-  }
+  },
+  "type": "module"
 }

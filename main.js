@@ -1,12 +1,12 @@
-const espree = require("espree");
+import { parse } from "espree";
 
 // in reality this would come from some kind of file.
 const oldSourceCode = "var foo = 1";
 const newSourceCode = "let foo = 1";
 
 const parserOptions = { ecmaVersion: 6 };
-const oldAst = espree.parse(oldSourceCode, parserOptions);
-const newAst = espree.parse(newSourceCode, parserOptions);
+const oldAst = parse(oldSourceCode, parserOptions);
+const newAst = parse(newSourceCode, parserOptions);
 
 let varFound = false;
 let letFound = false;
