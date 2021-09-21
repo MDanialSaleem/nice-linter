@@ -1,26 +1,26 @@
 import { parse } from "espree";
+import { readFileSync } from "fs";
+import colors from "colors";
 
+import { prettyPrint } from "./utils.js";
+import findDeclarationChanges from "./declarations.js";
 // in reality this would come from some kind of file.
-const oldSourceCode = "var foo = 1";
-const newSourceCode = "let foo = 1";
-
+const oldSourceCode = readFileSync("./test/old.js");
+const newSourceCode = readFileSync("./test/new.js");
 const parserOptions = { ecmaVersion: 6 };
 const oldAst = parse(oldSourceCode, parserOptions);
 const newAst = parse(newSourceCode, parserOptions);
 
-let varFound = false;
-let letFound = false;
-for (let node of oldAst.body) {
-  if (node.type == "VariableDeclaration" && node.kind == "var") {
-    varFound = true;
-  }
-}
-for (let node of newAst.body) {
-  if (node.type == "VariableDeclaration" && node.kind == "let") {
-    letFound = true;
-  }
-}
+const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
 
-if (varFound && letFound) {
-  console.log("Good work!You converted var to let.");
+prettyPrint(variableDeclerationChanges, colors.yellow);
+
+for (const changes of variableDeclerationChanges) {
+  const oldVar = changes.old;
+  const newVar = changes.new;
+  if (oldVar.kind === "var" && newVar.kind === "let") {
+    console.log(
+      `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
+    );
+  }
 }
