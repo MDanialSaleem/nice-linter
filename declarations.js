@@ -71,8 +71,23 @@ const findDeclarationChanges = (oldAst, newAst) => {
   const newDeclarations = findDeclrationsFromAst(newAst);
 
   const returner = [];
+
+  for(var variable in oldDeclarations){
+    variable=variable.replace(/_/g, '').toLowerCase();
+    console.log(variable)
+  }
+  for(var variableNew in newDeclarations){
+    variableNew=variableNew.replace(/_/g, '').toLowerCase();
+    console.log(variableNew)
+  }
+
+console.log(oldDeclarations)
+console.log("*********")
+console.log(newDeclarations)
+ 
   for (const variable in oldDeclarations) {
     if (variable in newDeclarations) {
+      console.log(variable)
       // the problem here is discovering the same variable in old and new files. our definition of same variable is that it has the same name and that it is on the same line.
       // another possible definition can be that it has the same name and it is in the same scope. i think this might be better
       // anyway the definition do not matter and can be changed later. for now this suffices.
