@@ -1,4 +1,4 @@
-var a = 1;
+var iAmVariable = 1;
 function func() {
   let foo = 1,
     foo2 = 2;
