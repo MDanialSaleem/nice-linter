@@ -11,3 +11,5 @@ function func() {
 }
 let a = {};
 let b = a?.b;
+const funcA = () => {};
+const funcB = () => {};

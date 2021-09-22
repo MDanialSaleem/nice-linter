@@ -11,3 +11,5 @@ function func() {
 }
 let a = {};
 let b = a.b;
+function funcA() {}
+const funcB = function () {};
