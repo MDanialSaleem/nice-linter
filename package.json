@@ -1,0 +1,29 @@
+{
+  "name": "nice-linter",
+  "version": "1.0.0",
+  "description": "a linter that commends you when you make a code change that reflects best practices, or fixes security flaws",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MDanialSaleem/nice-linter.git"
+  },
+  "keywords": [
+    "linter"
+  ],
+  "author": "danial, nilisha, zena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MDanialSaleem/nice-linter/issues"
+  },
+  "homepage": "https://github.com/MDanialSaleem/nice-linter#readme",
+  "dependencies": {
+    "espree": "^9.0.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "colors": "^1.4.0"
+  }
+}
