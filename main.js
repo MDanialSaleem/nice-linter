@@ -14,7 +14,7 @@ const newAst = parse(newSourceCode, parserOptions);
 
 const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
 
-const hasUpperCase= s => s.toLowerCase() != s;
+const hasUpperCase = s => s.toLowerCase() != s;
 
 prettyPrint(variableDeclerationChanges, colors.yellow);
 
@@ -26,11 +26,11 @@ for (const changes of variableDeclerationChanges) {
       `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
     );
   }
-  if(hasUpperCase(oldVar.id.name)){
-    if (oldVar.id.name === camelCase(oldVar.id.name)) {
-     console.log(
-       `Great job!You are going good by following the best practises.You have used camelCase for ${oldVar.id.name}. `
-     );
-   }
-  } 
+  if (hasUpperCase(newVar.id.name)) {
+    if (newVar.id.name === camelCase(oldVar.id.name)) {
+      console.log(
+        `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
+      );
+    }
+  }
 }
