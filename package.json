@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/MDanialSaleem/nice-linter#readme",
   "dependencies": {
+    "camelcase": "^6.2.0",
     "espree": "^9.0.0"
   },
   "type": "module",

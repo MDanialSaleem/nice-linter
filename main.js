@@ -1,9 +1,10 @@
 import { parse } from "espree";
 import { readFileSync } from "fs";
 import colors from "colors";
-
+import camelCase from "camelcase";
 import { prettyPrint } from "./utils.js";
 import findDeclarationChanges from "./declarations.js";
+
 // in reality this would come from some kind of file.
 const oldSourceCode = readFileSync("./test/old.js");
 const newSourceCode = readFileSync("./test/new.js");
@@ -12,6 +13,8 @@ const oldAst = parse(oldSourceCode, parserOptions);
 const newAst = parse(newSourceCode, parserOptions);
 
 const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
+
+const hasUpperCase = s => s.toLowerCase() != s;
 
 prettyPrint(variableDeclerationChanges, colors.yellow);
 
@@ -22,5 +25,12 @@ for (const changes of variableDeclerationChanges) {
     console.log(
       `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
     );
+  }
+  if (hasUpperCase(newVar.id.name)) {
+    if (newVar.id.name === camelCase(oldVar.id.name)) {
+      console.log(
+        `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
+      );
+    }
   }
 }

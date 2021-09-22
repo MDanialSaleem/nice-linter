@@ -71,6 +71,26 @@ const findDeclarationChanges = (oldAst, newAst) => {
   const newDeclarations = findDeclrationsFromAst(newAst);
 
   const returner = [];
+
+  for (let variable in oldDeclarations) {
+    let newVariable = variable.replace(/_/g, '').toLowerCase();
+    if (newVariable == variable)
+      break;
+    else {
+      oldDeclarations[newVariable] = oldDeclarations[variable];
+      delete oldDeclarations[variable]
+    }
+  }
+  for (let variable in newDeclarations) {
+    let newVariable = variable.replace(/_/g, '').toLowerCase();
+    if (newVariable == variable)
+      break;
+    else {
+      newDeclarations[newVariable] = newDeclarations[variable];
+      delete newDeclarations[variable]
+    }
+  }
+
   for (const variable in oldDeclarations) {
     if (variable in newDeclarations) {
       // the problem here is discovering the same variable in old and new files. our definition of same variable is that it has the same name and that it is on the same line.
@@ -78,9 +98,7 @@ const findDeclarationChanges = (oldAst, newAst) => {
       // anyway the definition do not matter and can be changed later. for now this suffices.
       const oldVar = oldDeclarations[variable];
       const newVar = newDeclarations[variable];
-      if (oldVar.start === newVar.start && oldVar.end === newVar.end) {
-        returner.push({ old: oldVar, new: newVar });
-      }
+      returner.push({ old: oldVar, new: newVar });
     }
   }
   return returner;
