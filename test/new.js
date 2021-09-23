@@ -1,3 +1,4 @@
+"use strict";
 let iAmVariable = 1;
 function func() {
   let foo = 1,
@@ -13,3 +14,6 @@ let a = {};
 let b = a?.b;
 const funcA = ({ a, b }, c) => {};
 const funcB = () => {};
+let person = "Monty";
+var action = `${person} ${b} eats apple`;
+console.log(sentence);

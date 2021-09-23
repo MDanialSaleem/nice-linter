@@ -13,3 +13,7 @@ let a = {};
 let b = a.b;
 function funcA(c, a, b) {}
 const funcB = function () {};
+
+let person = "Monty";
+var action = person + "eats apple";
+console.log(sentence);
