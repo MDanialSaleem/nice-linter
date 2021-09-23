@@ -12,3 +12,6 @@ function func() {
 }
 let a = {};
 let b = a?.b;
+let person='Monty';
+var action=`${person} ${b} eats apple`;
+console.log(sentence)

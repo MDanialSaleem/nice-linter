@@ -33,6 +33,11 @@ for (const changes of variableDeclerationChanges) {
       );
     }
   }
+  if (newVar.init.type === "TemplateLiteral" && oldVar.init.type !== "TemplateLiteral") {
+    console.log(
+      `Good going since you have switched to use template literal in ${oldVar.id.name}.`
+    );
+  }
 }
 
 const memberExpressionChanges = findMemberExpressionChanges(oldAst, newAst);
