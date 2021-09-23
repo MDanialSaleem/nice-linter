@@ -1,3 +1,4 @@
+"use strict";
 let iAmVariable = 1;
 function func() {
   let foo = 1,

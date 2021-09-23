@@ -26,7 +26,7 @@ for (const changes of variableDeclerationChanges) {
       `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
     );
   }
-  if (hasUpperCase(newVar.id.name)) {
+  if (hasUpperCase(newVar.id.name) && oldVar.id.name.match(/_/g, "") ? true : false) {
     if (newVar.id.name === camelCase(oldVar.id.name)) {
       console.log(
         `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
