@@ -7,4 +7,7 @@ function func() {
   if (true) {
     console.log("s");
   }
+  let moreBar = bar?.prop;
 }
+let a = {};
+let b = a?.b;

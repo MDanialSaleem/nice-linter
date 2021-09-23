@@ -32,7 +32,6 @@ import colors from "colors";
 import { prettyPrint } from "./utils.js";
 
 const findDeclarationsFromBody = (bodyArray) => {
-  // prettyPrint(bodyArray, colors.blue);
   let returner = {};
   for (const node of bodyArray) {
     if (node.type == null) {
@@ -73,21 +72,19 @@ const findDeclarationChanges = (oldAst, newAst) => {
   const returner = [];
 
   for (let variable in oldDeclarations) {
-    let newVariable = variable.replace(/_/g, '').toLowerCase();
-    if (newVariable == variable)
-      break;
+    let newVariable = variable.replace(/_/g, "").toLowerCase();
+    if (newVariable == variable) break;
     else {
       oldDeclarations[newVariable] = oldDeclarations[variable];
-      delete oldDeclarations[variable]
+      delete oldDeclarations[variable];
     }
   }
   for (let variable in newDeclarations) {
-    let newVariable = variable.replace(/_/g, '').toLowerCase();
-    if (newVariable == variable)
-      break;
+    let newVariable = variable.replace(/_/g, "").toLowerCase();
+    if (newVariable == variable) break;
     else {
       newDeclarations[newVariable] = newDeclarations[variable];
-      delete newDeclarations[variable]
+      delete newDeclarations[variable];
     }
   }
 

@@ -4,19 +4,19 @@ import colors from "colors";
 import camelCase from "camelcase";
 import { prettyPrint } from "./utils.js";
 import findDeclarationChanges from "./declarations.js";
+import findMemberExpressionChanges from "./member-expressions.js";
 
 // in reality this would come from some kind of file.
 const oldSourceCode = readFileSync("./test/old.js");
 const newSourceCode = readFileSync("./test/new.js");
-const parserOptions = { ecmaVersion: 6 };
+// ecmaVersion is JS version and loc means enablign line numbers on nodes.
+const parserOptions = { ecmaVersion: 11, loc: true };
 const oldAst = parse(oldSourceCode, parserOptions);
 const newAst = parse(newSourceCode, parserOptions);
 
 const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
 
-const hasUpperCase = s => s.toLowerCase() != s;
-
-prettyPrint(variableDeclerationChanges, colors.yellow);
+const hasUpperCase = (s) => s.toLowerCase() != s;
 
 for (const changes of variableDeclerationChanges) {
   const oldVar = changes.old;
@@ -32,5 +32,17 @@ for (const changes of variableDeclerationChanges) {
         `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
       );
     }
+  }
+}
+
+const memberExpressionChanges = findMemberExpressionChanges(oldAst, newAst);
+for (const memberExpressionChange of memberExpressionChanges) {
+  if (
+    memberExpressionChange.old.optional === false &&
+    memberExpressionChange.new.optional === true
+  ) {
+    console.log(
+      `Great job!You converted a property change to optional property change at line ${memberExpressionChange.old.loc.start.line}`
+    );
   }
 }
