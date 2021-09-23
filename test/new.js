@@ -1,3 +1,4 @@
+"use strict";
 let iAmVariable = 1;
 function func() {
   let foo = 1,
@@ -11,3 +12,6 @@ function func() {
 }
 let a = {};
 let b = a?.b;
+let person='Monty';
+var action=`${person} ${b} eats apple`;
+console.log(sentence)

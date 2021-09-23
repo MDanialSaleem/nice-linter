@@ -37,7 +37,6 @@ const findDeclarationsFromBody = (bodyArray) => {
     if (node.type == null) {
       throw new Error("Invalid ast. Type poperty missing on node");
     }
-
     switch (node.type) {
       case "VariableDeclaration":
         for (const declaration of node.declarations) {
@@ -49,6 +48,9 @@ const findDeclarationsFromBody = (bodyArray) => {
         break;
       case "FunctionDeclaration":
         returner = { ...returner, ...findDeclarationsFromBody(node.body.body) };
+        break;
+      case "ExpressionStatement":
+        returner[node.expression.type] = node;
         break;
       default:
         console.warn("Unknown node type encountered: " + node.type);
@@ -68,8 +70,8 @@ const findDeclrationsFromAst = (ast) => {
 const findDeclarationChanges = (oldAst, newAst) => {
   const oldDeclarations = findDeclrationsFromAst(oldAst);
   const newDeclarations = findDeclrationsFromAst(newAst);
-
   const returner = [];
+  if ('Literal' in newDeclarations && !('Literal' in oldDeclarations)) console.log(`You have now used "use Strict" directive. The code should now be executed in "strict mode". `)
 
   for (let variable in oldDeclarations) {
     let newVariable = variable.replace(/_/g, "").toLowerCase();
@@ -89,7 +91,7 @@ const findDeclarationChanges = (oldAst, newAst) => {
   }
 
   for (const variable in oldDeclarations) {
-    if (variable in newDeclarations) {
+    if (variable in newDeclarations && variable != ('Literal' && 'CallExpression')) {
       // the problem here is discovering the same variable in old and new files. our definition of same variable is that it has the same name and that it is on the same line.
       // another possible definition can be that it has the same name and it is in the same scope. i think this might be better
       // anyway the definition do not matter and can be changed later. for now this suffices.
