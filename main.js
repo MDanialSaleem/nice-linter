@@ -5,6 +5,8 @@ import camelCase from "camelcase";
 import { prettyPrint } from "./utils.js";
 import findDeclarationChanges from "./declarations.js";
 import findMemberExpressionChanges from "./member-expressions.js";
+import findFunctionChanges from "./functions.js";
+import * as NODE_TYPES from "./node-types.js";
 
 // in reality this would come from some kind of file.
 const oldSourceCode = readFileSync("./test/old.js");
@@ -43,6 +45,19 @@ for (const memberExpressionChange of memberExpressionChanges) {
   ) {
     console.log(
       `Great job!You converted a property change to optional property change at line ${memberExpressionChange.old.loc.start.line}`
+    );
+  }
+}
+
+const functionChanges = findFunctionChanges(oldAst, newAst);
+for (const functionChange of functionChanges) {
+  if (
+    (functionChange.old.type === NODE_TYPES.FUNCTION_DECLARATION ||
+      functionChange.old.type === NODE_TYPES.FUNCTION_EXPRESSION) &&
+    functionChange.new.type === NODE_TYPES.AROOW_FUNCTION_EXPRESSION
+  ) {
+    console.log(
+      `Great job!You converted the function ${functionChange.old.name} from function keyword to arrow function`
     );
   }
 }
