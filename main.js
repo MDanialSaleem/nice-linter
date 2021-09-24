@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { parse } from "espree";
 import { readFileSync } from "fs";
 import { prettyPrint } from "./src/utils/index.js";
