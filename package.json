@@ -1,6 +1,6 @@
 {
   "name": "nice-linter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a linter that commends you when you make a code change that reflects best practices, or fixes security flaws",
   "main": "main.js",
   "scripts": {

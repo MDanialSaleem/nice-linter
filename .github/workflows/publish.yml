@@ -1,10 +1,9 @@
-- name: Publish
-  uses: JS-DevTools/npm-publish@v1
+name: NPM Publish
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   publish:
