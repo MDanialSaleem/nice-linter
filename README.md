@@ -35,11 +35,11 @@ function foo(x) {
 }
 ```
 The parser will produce the following AST.
-<br>
+<br><br>
 <img src="images/img1.png">
-<br>
+<br><br>
 This is just for visualization purposes, it is a simplified version of what the parser would produce. The actual AST is much more complex. For JavaScript, an AST is a JavaScript object containing a tree representation of your source. Lets look at the actual AST in the image below:
-<br>
+<br><br>
 <img src="images/img2.png">
 <br>
 ### Finding Changes
@@ -50,7 +50,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 ```bash
 npm install
 ```
-It downloads a package and it's dependencies.
+It downloads a package and it's dependencies. Now run:
 
 ```bash
 node main.js linters --old=<old-file-path> --new=<new-file-path> 
@@ -60,7 +60,7 @@ Viola! Now you are done. You should see the comments about the best practises yo
 ## Features
 - The tool commends the user if he/she has switched from *let* to *var* for declaring variables.
 - Breaking a long function into smaller ones is a good practise. The tool appreciates when you do it!
-- It congrarulates the user for switching to cameCase style of naming variables. Since, it makes the variable name more descriptive.
+- It congratulates the user for switching to cameCase style of naming variables. Since, it makes the variable name more descriptive.
 - When you convert chaining to optional chaining the tool extrol you!
 - The tool praises you if add *use Strict* in your file.
 - Normal functions sounds boring. The tool supports you if you convert normal function to an arrow function
