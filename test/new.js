@@ -12,6 +12,8 @@ function func() {
 }
 let a = {};
 let b = a?.b;
-let person='Monty';
-var action=`${person} ${b} eats apple`;
-console.log(sentence)
+const funcA = ({ a, b }, c) => {};
+const funcB = () => {};
+let person = "Monty";
+var action = `${person} ${b} eats apple`;
+console.log(sentence);

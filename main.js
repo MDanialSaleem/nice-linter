@@ -5,6 +5,11 @@ import camelCase from "camelcase";
 import { prettyPrint } from "./utils.js";
 import findDeclarationChanges from "./declarations.js";
 import findMemberExpressionChanges from "./member-expressions.js";
+import findFunctionChanges, {
+  ruleFunctionKeywordToArrow,
+  ruleOptionsObjectPattern,
+} from "./functions.js";
+import * as NODE_TYPES from "./node-types.js";
 
 // in reality this would come from some kind of file.
 const oldSourceCode = readFileSync("./test/old.js");
@@ -51,3 +56,7 @@ for (const memberExpressionChange of memberExpressionChanges) {
     );
   }
 }
+
+const functionChanges = findFunctionChanges(oldAst, newAst);
+ruleFunctionKeywordToArrow(functionChanges);
+ruleOptionsObjectPattern(functionChanges);
