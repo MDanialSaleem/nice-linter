@@ -97,4 +97,4 @@ function LinterFn(oldFileName, newFileName) {
   }
 }
 
-//node main.js linters --dir=C:\Users\hp\Desktop\nice-linter\test --old=old.js --new=new.js
+
