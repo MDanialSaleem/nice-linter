@@ -16,7 +16,31 @@ import findFunctionChanges, {
   ruleFunctionKeywordToArrow,
   ruleOptionsObjectPattern,
 } from "./src/rules/functions.js";
+import colors from "colors";
 
+const mainFunc = (oldFileName, newFileName) => {
+  const oldSourceCode = readFileSync(oldFileName);
+  const newSourceCode = readFileSync(newFileName);
+  // ecmaVersion is JS version and loc means enablign line numbers on nodes.
+  const parserOptions = { ecmaVersion: 11, loc: true };
+  const oldAst = parse(oldSourceCode, parserOptions);
+  const newAst = parse(newSourceCode, parserOptions);
+
+  const output = [];
+  const functionChanges = findFunctionChanges(oldAst, newAst);
+  output.push(...ruleFunctionKeywordToArrow(functionChanges));
+  ruleOptionsObjectPattern(functionChanges);
+
+  const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
+  output.push(...ruleVarToLet(variableDeclerationChanges));
+  output.push(...ruleCamelCase(variableDeclerationChanges));
+  output.push(...ruleTemplateLiterals(variableDeclerationChanges));
+
+  const memberExpressionChanges = findMemberExpressionChanges(oldAst, newAst);
+  ruleOptionalChainign(memberExpressionChanges);
+
+  return output;
+};
 const y = yargs();
 
 y.command({
@@ -43,22 +67,10 @@ y.command({
 y.parse(process.argv.slice(2));
 
 function LinterFn(oldFileName, newFileName) {
-  const oldSourceCode = readFileSync(oldFileName);
-  const newSourceCode = readFileSync(newFileName);
-  // ecmaVersion is JS version and loc means enablign line numbers on nodes.
-  const parserOptions = { ecmaVersion: 11, loc: true };
-  const oldAst = parse(oldSourceCode, parserOptions);
-  const newAst = parse(newSourceCode, parserOptions);
-
-  const functionChanges = findFunctionChanges(oldAst, newAst);
-  ruleFunctionKeywordToArrow(functionChanges);
-  ruleOptionsObjectPattern(functionChanges);
-
-  const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
-  ruleVarToLet(variableDeclerationChanges);
-  ruleCamelCase(variableDeclerationChanges);
-  ruleTemplateLiterals(variableDeclerationChanges);
-
-  const memberExpressionChanges = findMemberExpressionChanges(oldAst, newAst);
-  ruleOptionalChainign(memberExpressionChanges);
+  let output = mainFunc(oldFileName, newFileName);
+  output.forEach((output) => {
+    console.log(`On Line ${output.line}: ${output.message}`);
+  });
 }
+
+export default mainFunc;

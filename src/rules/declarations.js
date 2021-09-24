@@ -174,20 +174,24 @@ const findDeclarationChanges = (oldAst, newAst) => {
 };
 
 export const ruleVarToLet = (variableDeclerationChanges) => {
+  const retuner = [];
   for (const changes of variableDeclerationChanges) {
     const oldVar = changes.old;
     const newVar = changes.new;
     if (oldVar.kind === "var" && newVar.kind === "let") {
-      console.log(
-        `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
-      );
+      retuner.push({
+        line: newVar.loc.start.line,
+        message: `Good work. You changed the type of variable ${oldVar.id.name} from var to let`,
+      });
     }
   }
+  return retuner;
 };
 
 const hasUpperCase = (s) => s.toLowerCase() != s;
 
 export const ruleCamelCase = (variableDeclerationChanges) => {
+  const retuner = [];
   for (const changes of variableDeclerationChanges) {
     const oldVar = changes.old;
     const newVar = changes.new;
@@ -197,15 +201,18 @@ export const ruleCamelCase = (variableDeclerationChanges) => {
         : false
     ) {
       if (newVar.id.name === camelCase(oldVar.id.name)) {
-        console.log(
-          `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
-        );
+        retuner.push({
+          line: newVar.loc.start.line,
+          message: `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `,
+        });
       }
     }
   }
+  return retuner;
 };
 
 export const ruleTemplateLiterals = (variableDeclerationChanges) => {
+  const returner = [];
   for (const changes of variableDeclerationChanges) {
     const oldVar = changes.old;
     const newVar = changes.new;
@@ -213,10 +220,12 @@ export const ruleTemplateLiterals = (variableDeclerationChanges) => {
       newVar.init.type === "TemplateLiteral" &&
       oldVar.init.type !== "TemplateLiteral"
     ) {
-      console.log(
-        `Good going since you have switched to use template literal in ${oldVar.id.name}.`
-      );
+      returner.push({
+        line: newVar.loc.start.line,
+        message: `Good going since you have switched to use template literal in ${oldVar.id.name}.`,
+      });
     }
   }
+  return returner;
 };
 export default findDeclarationChanges;

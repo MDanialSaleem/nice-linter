@@ -65,17 +65,20 @@ const findFunctionChanges = (oldAst, newAst) => {
 };
 
 export const ruleFunctionKeywordToArrow = (functionChanges) => {
+  const returner = [];
   for (const functionChange of functionChanges) {
     if (
       (functionChange.old.type === NODE_TYPES.FUNCTION_DECLARATION ||
         functionChange.old.type === NODE_TYPES.FUNCTION_EXPRESSION) &&
       functionChange.new.type === NODE_TYPES.AROOW_FUNCTION_EXPRESSION
     ) {
-      console.log(
-        `Great job!You converted the function ${functionChange.old.name} from function keyword to arrow function`
-      );
+      returner.push({
+        line: functionChange.new.loc.start.line,
+        message: `Great job!You converted the function ${functionChange.old.name} from function keyword to arrow function`,
+      });
     }
   }
+  return returner;
 };
 
 // given a function declaration, this function finds paramters of simple kind(not object or array destructure
@@ -86,6 +89,7 @@ const findSimpleParams = (functionDeclaration) =>
     .map((param) => param.name);
 
 export const ruleOptionsObjectPattern = (functionChanges) => {
+  const retuner = [];
   for (const functionChange of functionChanges) {
     // we first find paramters that were deleted from the old function. let's say they are a, b;
     // then we check if those two paramters are available as properties of an ObjectPattern in the new function.
@@ -104,13 +108,15 @@ export const ruleOptionsObjectPattern = (functionChanges) => {
       objectParamsInNew
     );
     if (commonParameters.length > 0) {
-      console.log(
-        `Great Work! You converted paramters ${commonParameters.join(
+      retuner.push({
+        line: functionChange.new.loc.start.line,
+        message: `Great Work! You converted paramters ${commonParameters.join(
           ","
-        )} to options object pattern in function ${functionChange.old.name}`
-      );
+        )} to options object pattern in function ${functionChange.old.name}`,
+      });
     }
   }
+  return retuner;
 };
 
 export default findFunctionChanges;
