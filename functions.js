@@ -26,7 +26,7 @@ const findFunctionDeclarationsFromBody = (bodyArray) => {
         returner[node.id.name] = node;
         break;
       default:
-        console.warn("Unknown node type encountered: " + node.type);
+        break;
     }
   }
   return returner;
