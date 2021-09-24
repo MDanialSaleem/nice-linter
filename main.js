@@ -61,5 +61,3 @@ function LinterFn(oldFileName, newFileName) {
   const memberExpressionChanges = findMemberExpressionChanges(oldAst, newAst);
   ruleOptionalChainign(memberExpressionChanges);
 }
-
-//node main.js linters --old=old.js --new=new.js
