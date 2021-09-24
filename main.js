@@ -29,7 +29,7 @@ const mainFunc = (oldFileName, newFileName) => {
   const output = [];
   const functionChanges = findFunctionChanges(oldAst, newAst);
   output.push(...ruleFunctionKeywordToArrow(functionChanges));
-  ruleOptionsObjectPattern(functionChanges);
+  output.push(...ruleOptionsObjectPattern(functionChanges));
 
   const variableDeclerationChanges = findDeclarationChanges(oldAst, newAst);
   output.push(...ruleVarToLet(variableDeclerationChanges));
