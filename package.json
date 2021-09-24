@@ -28,5 +28,6 @@
   "type": "module",
   "devDependencies": {
     "colors": "^1.4.0"
-  }
+  },
+  "bin": "main.js"
 }
