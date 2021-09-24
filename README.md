@@ -40,7 +40,7 @@ The parser will produce the following AST.
 <br>
 This is just for visualization purposes, it is a simplified version of what the parser would produce. The actual AST is much more complex. For JavaScript, an AST is a JavaScript object containing a tree representation of your source. Lets look at the actual AST in the image below:
 <br>
-<img src="imgages/img2.png">
+<img src="images/img2.png">
 <br>
 ### Finding Changes
 After we have the AST, we just need to compare the AST's of the previous code and the new code to get the changes. On the basis of comparison then,the linter commends you for making changes in the code that reflect best practices.
