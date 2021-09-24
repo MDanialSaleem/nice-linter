@@ -6,3 +6,7 @@ export const FUNCTION_EXPRESSION = "FunctionExpression";
 export const AROOW_FUNCTION_EXPRESSION = "ArrowFunctionExpression";
 export const IDENTIFIER = "Identifier";
 export const OBJECT_PATTERN = "ObjectPattern";
+export const IF_STATEMENT = "IfStatement";
+export const EXPRESSION_STATEMENT = "ExpressionStatement";
+export const FOR_STATEMENT = "ForStatement";
+export const BLOCK_STATEMENT = "BlockStatement";

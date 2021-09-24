@@ -5,8 +5,12 @@ function func() {
     foo2 = 2;
   let bar = foo;
 
-  if (true) {
-    console.log("s");
+  if (iAmVariable == 1) {
+    let ifVar = 9;
+  } else if (iAmVariable == 2) {
+    let elseifVar = 10;
+  } else {
+    let elseVar = 11;
   }
   let moreBar = bar?.prop;
 }
@@ -17,3 +21,6 @@ const funcB = () => {};
 let person = "Monty";
 var action = `${person} ${b} eats apple`;
 console.log(sentence);
+for (let i = 0; i < 10; i++) {
+  var iReduced = i;
+}

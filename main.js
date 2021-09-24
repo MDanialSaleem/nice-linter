@@ -10,47 +10,38 @@ import findFunctionChanges, {
   ruleOptionsObjectPattern,
 } from "./functions.js";
 import * as NODE_TYPES from "./node-types.js";
-import path from 'path';
-import process from 'process';
-import yargs from 'yargs';
+import path from "path";
+import process from "process";
+import yargs from "yargs";
 
 const y = yargs();
 
 y.command({
-  command: 'linters',
-  describe: 'Commends you for making changes in the code that reflect best practices',
+  command: "linters",
+  describe:
+    "Commends you for making changes in the code that reflect best practices",
   builder: {
-    dir: {
-      describe: 'Directory path',
-      demandOption: true,
-      type: 'string'
-    },
     old: {
-      describe: 'Old file name',
+      describe: "Old file path",
       demandOption: true,
-      type: 'string'
+      type: "string",
     },
     new: {
-      describe: 'New file name',
+      describe: "New file path",
       demandOption: true,
-      type: 'string'
-    }
+      type: "string",
+    },
   },
   handler(argv) {
-    LinterFn(argv.dir, argv.old, argv.new);
-  }
-})
+    LinterFn(argv.old, argv.new);
+  },
+});
 
-y.parse(process.argv.slice(2))
+y.parse(process.argv.slice(2));
 
-function LinterFn(dir, oldFileName, newFileName) {
-  process.chdir(dir);
-  const __dirname = path.resolve();
-  const oldFile = path.join(__dirname, oldFileName);
-  const newFile = path.join(__dirname, newFileName);
-
-  const oldSourceCode = readFileSync(oldFile);
-  const newSourceCode = readFileSync(newFile);
+function LinterFn(oldFileName, newFileName) {
+  const oldSourceCode = readFileSync(oldFileName);
+  const newSourceCode = readFileSync(newFileName);
   // ecmaVersion is JS version and loc means enablign line numbers on nodes.
   const parserOptions = { ecmaVersion: 11, loc: true };
   const oldAst = parse(oldSourceCode, parserOptions);
@@ -72,14 +63,21 @@ function LinterFn(dir, oldFileName, newFileName) {
         `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
       );
     }
-    if (hasUpperCase(newVar.id.name) && oldVar.id.name.match(/_/g, "") ? true : false) {
+    if (
+      hasUpperCase(newVar.id.name) && oldVar.id.name.match(/_/g, "")
+        ? true
+        : false
+    ) {
       if (newVar.id.name === camelCase(oldVar.id.name)) {
         console.log(
           `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
         );
       }
     }
-    if (newVar.init.type === "TemplateLiteral" && oldVar.init.type !== "TemplateLiteral") {
+    if (
+      newVar.init.type === "TemplateLiteral" &&
+      oldVar.init.type !== "TemplateLiteral"
+    ) {
       console.log(
         `Good going since you have switched to use template literal in ${oldVar.id.name}.`
       );
@@ -99,4 +97,4 @@ function LinterFn(dir, oldFileName, newFileName) {
   }
 }
 
-//node main.js linters --dir=C:\Users\hp\Desktop\nice-linter\test --old=old.js --new=new.js 
+//node main.js linters --dir=C:\Users\hp\Desktop\nice-linter\test --old=old.js --new=new.js
