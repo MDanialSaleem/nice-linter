@@ -1,6 +1,6 @@
 import colors from "colors";
-import { prettyPrint } from "./utils.js";
-import * as NODE_TYPES from "./node-types.js";
+import { prettyPrint } from "../utils/index.js";
+import * as NODE_TYPES from "../constants/node-types.js";
 
 // the code in this module is very similar to the code in declarations module. that is by desing. we
 // can sort of refactor this, but tht is not a priority right now.
@@ -68,5 +68,18 @@ const findMemberExpressionChanges = (oldAst, newAst) => {
     }
   }
   return returner;
+};
+
+export const ruleOptionalChainign = (memberExpressionChanges) => {
+  for (const memberExpressionChange of memberExpressionChanges) {
+    if (
+      memberExpressionChange.old.optional === false &&
+      memberExpressionChange.new.optional === true
+    ) {
+      console.log(
+        `Great job!You converted a property change to optional property change at line ${memberExpressionChange.old.loc.start.line}`
+      );
+    }
+  }
 };
 export default findMemberExpressionChanges;
