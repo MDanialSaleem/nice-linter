@@ -53,7 +53,7 @@ const findDeclarationsFromBody = (bodyArray) => {
         returner[node.expression.type] = node;
         break;
       default:
-        console.warn("Unknown node type encountered: " + node.type);
+        break;
     }
   }
   return returner;

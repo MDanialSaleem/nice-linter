@@ -34,7 +34,7 @@ const findMemberExpressionsFromBody = (bodyArray) => {
       case "ExpressionStatement":
         break;
       default:
-        console.warn("Unknown node type encountered: " + node.type);
+        break;
     }
   }
   return returner;
