@@ -53,7 +53,7 @@ npm install
 It downloads a package and it's dependencies.
 
 ```bash
-node main.js linters --dir=<path-to-directory-where-the-file-is-located> --old=<old-file-name> --new=<new-file-name> 
+node main.js linters --old=<old-file-path> --new=<new-file-path> 
 ```
 
 Viola! Now you are done. You should see the comments about the best practises you followed.
