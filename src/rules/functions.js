@@ -1,6 +1,6 @@
 import colors from "colors";
-import { prettyPrint } from "./utils.js";
-import * as NODE_TYPES from "./node-types.js";
+import { prettyPrint } from "../utils/index.js";
+import * as NODE_TYPES from "../constants/node-types.js";
 import lodash from "lodash";
 
 // these use the function keyword.

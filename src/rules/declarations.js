@@ -29,6 +29,7 @@
 
 // the body array, is basically an array of nodes. where each node can be a var declaration, function declaration if else block etc.
 import colors from "colors";
+import camelCase from "camelcase";
 import {
   BLOCK_STATEMENT,
   DO_WHILE_STATEMENT,
@@ -39,8 +40,8 @@ import {
   SWITCH_STATEMENT,
   VARIABLE_DECLARATION,
   WHILE_STATEMENT,
-} from "./node-types.js";
-import { prettyPrint } from "./utils.js";
+} from "../constants/node-types.js";
+import { prettyPrint } from "../utils/index.js";
 
 const findDeclarationsFromIfElifElse = (node) => {
   let returner = {};
@@ -170,5 +171,52 @@ const findDeclarationChanges = (oldAst, newAst) => {
     }
   }
   return returner;
+};
+
+export const ruleVarToLet = (variableDeclerationChanges) => {
+  for (const changes of variableDeclerationChanges) {
+    const oldVar = changes.old;
+    const newVar = changes.new;
+    if (oldVar.kind === "var" && newVar.kind === "let") {
+      console.log(
+        `Good work. You changed the type of variable ${oldVar.id.name} from var to let`
+      );
+    }
+  }
+};
+
+const hasUpperCase = (s) => s.toLowerCase() != s;
+
+export const ruleCamelCase = (variableDeclerationChanges) => {
+  for (const changes of variableDeclerationChanges) {
+    const oldVar = changes.old;
+    const newVar = changes.new;
+    if (
+      hasUpperCase(newVar.id.name) && oldVar.id.name.match(/_/g, "")
+        ? true
+        : false
+    ) {
+      if (newVar.id.name === camelCase(oldVar.id.name)) {
+        console.log(
+          `Great job!You have followed the camelCase style for naming variables. Changed ${oldVar.id.name} to ${newVar.id.name}. `
+        );
+      }
+    }
+  }
+};
+
+export const ruleTemplateLiterals = (variableDeclerationChanges) => {
+  for (const changes of variableDeclerationChanges) {
+    const oldVar = changes.old;
+    const newVar = changes.new;
+    if (
+      newVar.init.type === "TemplateLiteral" &&
+      oldVar.init.type !== "TemplateLiteral"
+    ) {
+      console.log(
+        `Good going since you have switched to use template literal in ${oldVar.id.name}.`
+      );
+    }
+  }
 };
 export default findDeclarationChanges;
