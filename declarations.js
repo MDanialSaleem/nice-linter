@@ -31,10 +31,14 @@
 import colors from "colors";
 import {
   BLOCK_STATEMENT,
+  DO_WHILE_STATEMENT,
   EXPRESSION_STATEMENT,
+  FOR_STATEMENT,
   FUNCTION_DECLARATION,
   IF_STATEMENT,
+  SWITCH_STATEMENT,
   VARIABLE_DECLARATION,
+  WHILE_STATEMENT,
 } from "./node-types.js";
 import { prettyPrint } from "./utils.js";
 
@@ -57,6 +61,16 @@ const findDeclarationsFromIfElifElse = (node) => {
       };
     default:
       break;
+  }
+  return returner;
+};
+const findDeclarationsFromSwitch = (node) => {
+  let returner = {};
+  for (const switchCase of node.cases) {
+    returner = {
+      ...returner,
+      ...findDeclarationsFromBody(switchCase.consequent),
+    };
   }
   return returner;
 };
@@ -86,6 +100,21 @@ const findDeclarationsFromBody = (bodyArray) => {
           ...returner,
           ...findDeclarationsFromIfElifElse(node),
         };
+        break;
+      case FOR_STATEMENT:
+      case DO_WHILE_STATEMENT:
+      case WHILE_STATEMENT:
+        returner = {
+          ...returner,
+          ...findDeclarationsFromBody(node.body.body),
+        };
+        break;
+      case SWITCH_STATEMENT:
+        returner = {
+          ...returner,
+          ...findDeclarationsFromSwitch(node),
+        };
+        break;
       default:
         break;
     }

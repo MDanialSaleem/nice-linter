@@ -10,3 +10,6 @@ export const IF_STATEMENT = "IfStatement";
 export const EXPRESSION_STATEMENT = "ExpressionStatement";
 export const FOR_STATEMENT = "ForStatement";
 export const BLOCK_STATEMENT = "BlockStatement";
+export const DO_WHILE_STATEMENT = "DoWhileStatement";
+export const WHILE_STATEMENT = "WhileStatement";
+export const SWITCH_STATEMENT = "SwitchStatement";

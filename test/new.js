@@ -22,5 +22,18 @@ let person = "Monty";
 var action = `${person} ${b} eats apple`;
 console.log(sentence);
 for (let i = 0; i < 10; i++) {
-  var iReduced = i;
+  let loopVar = i;
+}
+do {
+  let doWhileVar = 1;
+} while (i < 5);
+while (i < 5) {
+  let whileVar = 1;
+}
+switch (i_am_variable) {
+  case 9:
+    let caseVar = 1;
+    break;
+  default:
+    let defaultCaseVar = 2;
 }

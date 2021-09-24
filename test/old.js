@@ -22,5 +22,20 @@ let person = "Monty";
 var action = person + "eats apple";
 console.log(sentence);
 for (let i = 0; i < 10; i++) {
-  var iReduced = i;
+  var loopVar = i;
 }
+do {
+  var doWhileVar = 1;
+} while (i < 5);
+while (i < 5) {
+  var whileVar = 1;
+}
+
+switch (i_am_variable) {
+  case 9:
+    var caseVar = 1;
+    break;
+  default:
+    var defaultCaseVar = 2;
+}
+let moreBar = bar.prop;
